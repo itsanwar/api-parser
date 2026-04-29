@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Global ===== */
+body {
+    background: #09090b;
+    font-family: 'Outfit', system-ui, sans-serif;
+    letter-spacing: 0.02em;
+}
+
+/* ===== Scrollbars ===== */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #09090b; }
+::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #14b8a6; }
+
+/* ===== Loader ===== */
+.loader { display: none; }
+.loader.show {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(9, 9, 11, 0.8);
+    backdrop-filter: blur(8px);
+    align-items: center;
+    justify-content: center;
+}
+.loader-inner i {
+    display: block;
+    width: 44px;
+    height: 44px;
+    border: 3px solid rgba(20, 184, 166, 0.2);
+    border-top-color: #14b8a6;
+    border-radius: 50%;
+    animation: loaderSpin 0.8s linear infinite;
+}
+@keyframes loaderSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* ===== Body scroll lock ===== */
+body.stop { overflow: hidden; }
+
+/* ===== Flash animation ===== */
+.flash {
+    animation: flashPulse 0.3s ease;
+}
+@keyframes flashPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; background: rgba(20, 184, 166, 0.15); }
+}
+
+/* ===== Hide utility ===== */
+.hide { display: none !important; opacity: 0; pointer-events: none; }
+
+/* ===== JSON Viewer Dark Mode Overrides ===== */
+.json-document { padding: 1.5em; background: #18181b !important; border: 1px solid #3f3f46; }
+ul.json-dict, ol.json-array {
+    list-style-type: none;
+    margin: 0 0 0 1px;
+    border-left: 1px dashed #3f3f46;
+    padding-left: 2em;
+}
+.json-string { color: #14b8a6; }
+.json-literal { color: #f59e0b; font-weight: 600; }
+a.json-toggle { position: relative; color: #a1a1aa; text-decoration: none; transition: color 0.2s; }
+a.json-toggle:focus { outline: none; }
+a.json-toggle:before {
+    font-size: 1.1em; color: #52525b; content: "\25BC";
+    position: absolute; display: inline-block; width: 1em;
+    text-align: center; line-height: 1em; left: -1.2em;
+    transition: transform 0.2s;
+}
+a.json-toggle:hover { color: #e4e4e7; }
+a.json-toggle:hover:before { color: #e4e4e7; }
+a.json-toggle.collapsed:before { transform: rotate(-90deg); }
+a.json-placeholder { color: #718096; padding: 0 1em; text-decoration: none; }
+a.json-placeholder:hover { text-decoration: underline; }
+
+#json-renderer a:hover,
+#json-renderer li:hover {
+    background: rgba(20, 184, 166, 0.1);
+    border-radius: 6px;
+}
+
+/* ===== Textarea selection ===== */
+::selection {
+    background: rgba(20, 184, 166, 0.4);
+    color: #fff;
+}
+
+/* ===== Toggle Switch ===== */
+.toggle-switch {
+    position: relative;
+    width: 40px;
+    height: 22px;
+    background: #27272a;
+    border-radius: 11px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+    border: 1px solid #3f3f46;
+}
+.toggle-switch::after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 18px;
+    height: 18px;
+    background: #a1a1aa;
+    border-radius: 50%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.toggle-input:checked + .toggle-switch {
+    background: rgba(20, 184, 166, 0.2);
+    border-color: #14b8a6;
+}
+.toggle-input:checked + .toggle-switch::after {
+    transform: translateX(18px);
+    background: #14b8a6;
+    box-shadow: 0 0 8px rgba(20, 184, 166, 0.6);
+}
